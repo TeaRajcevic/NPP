@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments :: head" ></head>
+<body class="background">
+<div class="container-fluid" style="display: inline-block;">
+    <div th:replace="fragments :: header" ></div>
+    <h1 th:text="Sorry"></h1>
+    <p>Whoops, seems you ran out of your daily credit!</p>
+    <a th:href="@{/profile/user}" class="btn btn-info" >Profile</a>
+</div>
+</body>
+</html>

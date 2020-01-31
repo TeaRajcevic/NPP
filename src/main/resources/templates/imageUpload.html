@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments :: head">
+</head>
+<body class="background">
+<div class="containerBox">
+    <div class="container-fluid">
+        <div th:replace="fragments :: header" ></div>
+            <h3 text="Upload new image"></h3>
+            <form method="POST" th:object="${image}" enctype="multipart/form-data">
+                <div th:if="*{title == null}" class="form-group">
+                    <label class="col-sm-1 control-label">Picture Upload</label>
+                    <div class="col-md-12 mb-3">
+                        <input name="imagedata" type="file" value="upload" class="form-control" th:field="*{imagedata}" id="imageData"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="title"th:text="Title"></label>
+                        <input type="text" th:field="*{title}" class="form-control" name="title" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="description"th:text="Description"></label>
+                        <textarea type="text" th:field="*{description}" cols="40" rows="10" class="form-control" name="description" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="tags"th:text="Tags"></label>
+                        <input type="text" th:field="*{tags}" class="form-control" />
+                    </div>
+                </div>
+                <div th:if="*{title == null}" class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="sizex"th:text="SizeX"></label>
+                        <input type="number" th:field="*{sizex}" class="form-control" />
+                    </div>
+                </div>
+                <div th:if="*{title == null}" class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="sizey"th:text="SizeY"></label>
+                        <input type="number" th:field="*{sizey}" class="form-control" />
+                    </div>
+                </div>
+                <div th:if="*{title == null}" class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="format" th:text="Format"></label>
+                        <select class="form-control" th:field="*{format}">
+                            <option value="jpeg">JPG</option>
+                            <option value="png">PNG</option>
+                            <option value="bmp">BMP</option>
+                        </select>
+                    </div>
+                </div>
+                <div th:if="*{title == null}" class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <label for="filter" th:text="Filter"></label>
+                        <select class="form-control" th:field="*{filter}">
+                            <option value="blur">Blur</option>
+                            <option value="gaussian">Blur (Gaussian)</option>
+                            <option value="sharper">Sharper</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <input type="submit" value="Submit Image" class="btn btn-info" name="submitImage" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<a th:href="@{/gallery}" class="btn btn-info" >Gallery</a>
+<a th:href="@{/edit}" class="btn btn-info" name="edit">Edit</a>
+<a th:href="@{/profile/user}" class="btn btn-info" name="profile" >Profile</a>
+</body>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</html>

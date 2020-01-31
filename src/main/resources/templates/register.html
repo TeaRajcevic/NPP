@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="fragments :: head" ></head>
+    <body class="background">
+        <div class="container-fluid" style="display: inline-block;">
+            <div th:replace="fragments :: header" ></div>
+            <h1 th:text="#{msg.registration}"></h1>
+            <form method="POST" th:action="@{/register}">
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="username" th:text="#{msg.username}" ></label>
+                        <input type="text" name="username" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="password"th:text="#{msg.password}"></label>
+                        <input type="password" name="password" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="account" th:text="Account"></label>
+                        <select class="form-control" name="account">
+                            <option value="free">Free</option>
+                            <option value="pro">Pro</option>
+                            <option value="gold">Gold</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <!--<input type="hidden" name="_csrf" th:value="${_csrf.token}" />-->
+                        <input type="submit" th:value="#{msg.registerButton}" class="form-control btn btn-info" name="register" />
+                    </div>
+                </div>
+            </form>
+            <a th:href="@{/login}" class="btn btn-info" >Login</a>
+        </div>
+    </body>
+</html>

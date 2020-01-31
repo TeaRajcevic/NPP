@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments :: head" ></head>
+<body class="background">
+<div class="container-fluid" style="display: inline-block;">
+    <div th:replace="fragments :: header" ></div>
+    <form method="POST" th:action="@{/search}">
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+                <label for="query" th:text="Search"></label>
+                <input type="text" name="query" class="form-control" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+                <label for="target" th:text="Target"></label>
+                <select class="form-control" name="target">
+                    <option value="title">Title</option>
+                    <option value="tags">Tag</option>
+                    <option value="uploader">Uploader</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+                <input type="submit" th:value="Search" class="form-control btn btn-info" />
+            </div>
+        </div>
+    </form>
+</div>
+<a th:href="@{/gallery}" class="btn btn-info" >Gallery</a>
+</body>
+</html>

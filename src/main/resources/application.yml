@@ -1,0 +1,47 @@
+server:
+    contextPath: /mainstay
+    port: 2222
+spring:
+    h2:
+        console:
+            enabled: true
+            path: /h2-console
+    jpa:
+        hibernate:
+            ddl-auto: none
+            dialect: org.hibernate.dialect.H2Dialect
+            use-new-id-generator-mappings: false
+        properties:
+            hibernate:
+                format_sql: true
+        show-sql: false
+    security:
+        oauth2:
+            client:
+                registration:
+                    google:
+                        clientId: 391606679608-8kgbdtle6u4oqs59861m7kru7p48d8nh.apps.googleusercontent.com
+                        clientSecret: rsjsMxtCE-5_kqecuILrKP9A
+                        redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+                        scope:
+                            - email
+                            - profile
+                    facebook:
+                        clientId: 2335729159977104
+                        clientSecret: d77fd0ac483aca5bf8812e004ac9e7e7
+                        redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+                        scope:
+                            - email
+                            - public_profile
+                    github:
+                        clientId: 7be31d1538b741a68736
+                        clientSecret: 54a281011c8863b62aa00aa227a70697e8951ab0
+                        redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+                        scope:
+                            - user:email
+                            - read:user
+                provider:
+                    facebook:
+                        authorizationUri: https://www.facebook.com/v3.0/dialog/oauth
+                        tokenUri: https://graph.facebook.com/v3.0/oauth/access_token
+                        userInfoUri: https://graph.facebook.com/v3.0/me?fields=id,first_name,middle_name,last_name,name,email,verified,is_verified,picture.width(250).height(250)

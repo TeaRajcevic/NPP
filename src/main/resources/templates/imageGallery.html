@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments :: head">
+
+</head>
+<body class="background">
+<div class="containerBox">
+    <div class="container">
+        <h1>Gallery</h1>
+        <div>
+            <form class="form-horizontal">
+                <div class="form-group">
+                        <p class="form-control-static" >
+
+                            <div class="small-images" style="gallery">
+                                <tr th:each="thumb : ${thumbnails}">
+                                    <img th:src="@{'data:image/' +${thumb.format} + ';base64,' +${thumb.imagedata}}" />
+                                    <a th:if="${editing != null}" th:href="@{'/image/edit/' +${thumb.id}}" name="edit" >Edit</a>
+                                </tr>
+                            </div>
+
+
+
+                            <div th:if="${editing == null}" id="big-image">
+                                <tr th:each="image : ${rawImages}">
+                                    <div>
+                                        <img th:src="@{'data:image/' +${image.format} + ';base64,' +${image.imagedata}}" />
+                                        <p>Title: <span th:text="${image.title}" id="title"/></p>
+                                        <p>Author: <span th:text="${image.uploader}" /></p>
+                                        <p>Tags: <span th:text="${image.tags}" id="tags" /></p>
+                                        <p>Description: <span th:text="${image.description}" id="description"/></p>
+                                        <p>Created On: <span th:text="${image.createdAt}" /></p>
+                                    </div>
+                                </tr>
+                            </div>
+                        </p>
+                    </div>
+            </form>
+        </div>
+   </div>
+</div>
+<a th:href="@{/profile/user}" class="btn btn-info" >Profile</a>
+<a th:href="@{/image/new}" class="btn btn-info" >Upload Image</a>
+</body>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script>
+    $(function(){
+        $("#big-image").children().hide();
+        $(".small-images img").click(function(e){
+            var index = $(this).index();
+            $("#big-image div").eq(index).show().siblings().hide();
+        });
+    });
+</script>
+</html>

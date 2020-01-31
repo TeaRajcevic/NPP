@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="head">
+    <title th:text="#{msg.diary}" ></title>
+    <meta charset="UTF-8"></meta>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+
+
+</head>
+
+<body>
+
+<div th:fragment="header">
+
+    <img th:src="@{/images/diary_logo.png}"  />
+    <div sec:authorize="isAuthenticated()">
+        <form method="POST" th:action="@{/logout}">
+            <span th:text="#{msg.userInfo}" ></span>
+            <span sec:authentication="name"></span>.
+            <input type="submit" value="Logout" class="btn btn-danger" name="Logout" />
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

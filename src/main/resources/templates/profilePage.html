@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments :: head">
+</head>
+<body class="background">
+<div class="containerBox">
+    <div class="container-fluid">
+        <div th:replace="fragments :: header" ></div>
+        <i><h1 th:text="${user.username}" ></h1></i>
+        <p> Credit: <span th:text="${user.uploadLimit}"></span></p>
+    </div>
+    <form method="POST" th:action="@{/profile/updatePackage}">
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+                <label for="account" th:text="Account"></label>
+                <select class="form-control" name="account">
+                    <option value="free">Free</option>
+                    <option value="pro">Pro</option>
+                    <option value="gold">Gold</option>
+                </select>
+                <p> Package active from: <span th:text="${user.createdAt}"></span></p>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+                <!--<input type="hidden" name="_csrf" th:value="${_csrf.token}" />-->
+                <input type="submit" class="form-control btn btn-info" name="submit"/>
+            </div>
+        </div>
+    </form>
+</div>
+<a th:href="@{/gallery}" class="btn btn-info" >Gallery</a>
+</body>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments :: head" ></head>
+<body class="background">
+
+    <div th:replace="fragments :: header" ></div>
+    <div class="container-fluid" style="display: inline-block;">
+
+        <div class="row">
+
+        <div class="col-sm">
+    <div class="card text-white bg-info mb-1" style="width: 30rem; margin-left: 150px;">
+        <img class="card-img-top" img src="https://www.maxpixel.net/static/photo/1x/Book-History-Tell-Narrative-Fairy-Tales-Dream-794978.jpg" alt="Browse through most popular diaries:"/>
+        <div class="card-body">
+            <h5 class="card-title" th:text="#{msg.diaryWelcome}" ></h5>
+            <p class="card-text" th:text="#{msg.diaryGreeting}" ></p>
+        </div>
+
+        <ul class="list-unstyled"  th:each="diary : ${diaries}">
+            <li class="list-item list-group-item-action flex-column align-items-start active">
+
+                <div class="d-flex w-30 justify-content-between" style="margin: 15px;">
+                    <h5 class="mb-2">
+                        Title:&nbsp;<span  th:text="${diary.title}" />&nbsp;&nbsp;
+                        Written by:&nbsp;<i><span th:text="${diary.diarist.name}" /></i></h5>
+                    <span sec:authorize="hasRole('ROLE_ADMIN')" >
+                    <a th:href="@{'/diaries/edit/' + ${diary.id}}" class="btn btn-warning" >Edit</a>
+                </span></div></i></li>
+            <!-- Other Properties -->
+        </ul>
+    </div>
+</div>
+
+    <div class="col-sm" >
+    <div th:if="${param.error}" class="login-error" th:text="#{msg.noLogin}" ></div>
+    <div th:if="${param.logout}" class="logout-success" th:text="#{msg.logout}" ></div>
+    <a th:href="@{/gallery}" class="btn btn-info" >Gallery</a>
+    <form method="POST" th:action="@{/login}">
+        <div class="form-row login-row">
+            <div class="col-md-6 mb-3">
+                <h1>Login</h1>
+            </div>
+        </div>
+        <div class="form-row login-row">
+            <div class="col-md-6 mb-3">
+                <label for="username" th:text="#{msg.username}" ></label>
+                <input type="text" name="username" class="form-control" />
+            </div>
+        </div>
+        <div class="form-row login-row">
+            <div class="col-md-6 mb-3">
+                <label for="password" th:text="#{msg.password}" ></label>
+                <input type="password" name="password" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-row login-row">
+            <div class="col-md-6 mb-3">
+                <input type="submit" th:value="#{msg.loginButton}" name="submit" class="form-control btn btn-info" />
+            </div>
+        </div>
+        <div class="form-row login-row">
+            <div class="col-md-6 mb-3">
+                <a th:href="@{/register}" class="btn btn-info" th:text="#{msg.registerButton}" name="register" ></a>
+            </div>
+        </div>
+    </form>
+    </div>
+        </div>
+</div>
+
+
+
+</body>
+</html>
