@@ -40,27 +40,31 @@ public class GalleryController {
 
     @GetMapping
     public String showGallery(Model model) throws IOException {
-        Iterable<Image> rawImages = new ArrayList<>();
+        List<Image> rawImages;
         List<Image> thumbnails = new ArrayList<>();
         if(model.containsAttribute("values")) {
             rawImages = (List<Image>)model.asMap().get("values");
-
-            for(Image img : rawImages) {
-                createImageThumbnails(thumbnails, img);
-            }
+            createThumbnailList(rawImages);
         }
         else {
-            rawImages = imageRepository.findAll();
-
-            for(Image img : imageRepository.findAll()) {
-                createImageThumbnails(thumbnails, img);
-            }
+            rawImages = (List<Image>)imageRepository.findAll();
+            createThumbnailList(rawImages);
         }
 
         model.addAttribute("thumbnails", thumbnails);
         model.addAttribute("rawImages", rawImages);
         LOG.logVisit(returnLoggedUser(), "/gallery");
         return "imageGallery";
+    }
+
+    private void createThumbnailList(List<Image> rawImages) {
+        rawImages.stream().forEach(image -> {
+            try {
+                createImageThumbnails(rawImages, image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void createImageThumbnails(List<Image> thumbnails, Image img) throws IOException {
