@@ -5,6 +5,7 @@ import com.rajcevic.tea.DiaryWebApp.data.UserRepository;
 import com.rajcevic.tea.DiaryWebApp.patterns.Logger;
 import com.rajcevic.tea.DiaryWebApp.patterns.chain.SystemLogger;
 import com.rajcevic.tea.DiaryWebApp.model.User;
+import com.rajcevic.tea.DiaryWebApp.utils.TimeUtils;
 import com.rajcevic.tea.DiaryWebApp.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -53,12 +54,7 @@ public class ProfileController {
         User userFromDb = userRepository.findByUsername(UserUtils.returnLoggedUser());
         String oldPackage = userFromDb.getAccount();
         userFromDb.setAccount(account);
-        Date dt = new Date();
-        Calendar c = Calendar.getInstance();
-        c.setTime(dt);
-        c.add(Calendar.DATE, 1);
-        dt = c.getTime();
-        userFromDb.setCreatedAt(dt);
+        userFromDb.setCreatedAt(TimeUtils.setCurrentDate());
         try {
             logChain.logMessage(SystemLogger.INFO, "User: " + UserUtils.returnLoggedUser() + " has changed the account from " + oldPackage + " to: " + userFromDb.getAccount());
             throw new Exception();

@@ -14,6 +14,7 @@ import com.rajcevic.tea.DiaryWebApp.patterns.prototype.ImageCache;
 import com.rajcevic.tea.DiaryWebApp.model.Image;
 import com.rajcevic.tea.DiaryWebApp.model.User;
 import com.rajcevic.tea.DiaryWebApp.utils.ImageUtils;
+import com.rajcevic.tea.DiaryWebApp.utils.TimeUtils;
 import com.rajcevic.tea.DiaryWebApp.utils.UserUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,12 +103,7 @@ public class ImageController {
         }
 
         image.setUploader(UserUtils.returnLoggedUser());
-        Date dt = new Date();
-        Calendar c = Calendar.getInstance();
-        c.setTime(dt);
-        c.add(Calendar.DATE, 1);
-        dt = c.getTime();
-        image.setCreatedAt(dt);
+        image.setCreatedAt(TimeUtils.setCurrentDate());
 
         LOG.logUpload(UserUtils.returnLoggedUser(), image.getTitle());
 
