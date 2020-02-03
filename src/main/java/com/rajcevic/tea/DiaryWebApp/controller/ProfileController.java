@@ -5,6 +5,7 @@ import com.rajcevic.tea.DiaryWebApp.data.UserRepository;
 import com.rajcevic.tea.DiaryWebApp.patterns.Logger;
 import com.rajcevic.tea.DiaryWebApp.patterns.chain.SystemLogger;
 import com.rajcevic.tea.DiaryWebApp.model.User;
+import com.rajcevic.tea.DiaryWebApp.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,8 +37,9 @@ public class ProfileController {
 
     @GetMapping("/user")
     public String showGallery(Model model) {
-        model.addAttribute("user", userRepository.findByUsername(returnLoggedUser()));
-        LOG.logVisit(returnLoggedUser(), "/user");
+        String username = UserUtils.returnLoggedUser();
+        model.addAttribute("user", userRepository.findByUsername(username));
+        LOG.logVisit(username, "/user");
         return "profilePage";
     }
 
@@ -48,7 +50,7 @@ public class ProfileController {
     }
 
     private void setNewPackage(String account) throws IOException {
-        User userFromDb = userRepository.findByUsername(returnLoggedUser());
+        User userFromDb = userRepository.findByUsername(UserUtils.returnLoggedUser());
         String oldPackage = userFromDb.getAccount();
         userFromDb.setAccount(account);
         Date dt = new Date();
@@ -58,24 +60,13 @@ public class ProfileController {
         dt = c.getTime();
         userFromDb.setCreatedAt(dt);
         try {
-            logChain.logMessage(SystemLogger.INFO, "User: " + returnLoggedUser() + " has changed the account from " + oldPackage + " to: " + userFromDb.getAccount());
+            logChain.logMessage(SystemLogger.INFO, "User: " + UserUtils.returnLoggedUser() + " has changed the account from " + oldPackage + " to: " + userFromDb.getAccount());
             throw new Exception();
         } catch (Exception e) {
-            logChain.logMessage(SystemLogger.ERROR, "Unable to save new account info for user: " + returnLoggedUser());
+            logChain.logMessage(SystemLogger.ERROR, "Unable to save new account info for user: " + UserUtils.returnLoggedUser());
         }
         finally {
             userRepository.save(userFromDb);
         }
-    }
-
-    private String returnLoggedUser() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        return username;
     }
 }

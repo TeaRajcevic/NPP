@@ -4,6 +4,7 @@ import com.rajcevic.tea.DiaryWebApp.DiaryWebAppApplication;
 import com.rajcevic.tea.DiaryWebApp.patterns.Logger;
 import com.rajcevic.tea.DiaryWebApp.patterns.chain.SystemLogger;
 import com.rajcevic.tea.DiaryWebApp.utils.ImageUtils;
+import com.rajcevic.tea.DiaryWebApp.utils.UserUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import com.rajcevic.tea.DiaryWebApp.data.ImageRepository;
 import com.rajcevic.tea.DiaryWebApp.model.Image;
@@ -54,7 +55,7 @@ public class GalleryController {
 
         model.addAttribute("thumbnails", thumbnails);
         model.addAttribute("rawImages", rawImages);
-        LOG.logVisit(returnLoggedUser(), "/gallery");
+        LOG.logVisit(UserUtils.returnLoggedUser(), "/gallery");
         return "imageGallery";
     }
 
@@ -83,16 +84,5 @@ public class GalleryController {
         ByteArrayInputStream bis = new ByteArrayInputStream(raw);
         BufferedImage imageForThumbnail = ImageUtils.resizeImage(ImageIO.read(bis), 100, 100);
         return ImageUtils.writeImage(img, imageForThumbnail);
-    }
-
-    private String returnLoggedUser() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        return username;
     }
 }

@@ -3,6 +3,7 @@ package com.rajcevic.tea.DiaryWebApp.controller;
 import com.rajcevic.tea.DiaryWebApp.data.ImageRepository;
 import com.rajcevic.tea.DiaryWebApp.patterns.Logger;
 import com.rajcevic.tea.DiaryWebApp.model.Image;
+import com.rajcevic.tea.DiaryWebApp.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,13 +26,14 @@ public class EditController {
 
     @GetMapping
     public String editForm(RedirectAttributes redirectAttributes) {
-        LOG.logVisit(returnLoggedUser(),"/edit");
-        String user = returnLoggedUser();
+        String user = UserUtils.returnLoggedUser();
+        LOG.logVisit(user,"/edit");
+
         if(user.equals("admin")) {
             redirectAttributes.addFlashAttribute("values", imageRepository.findAll());
         }
         else {
-            Iterable<Image> userImages = imageRepository.findByUploader(returnLoggedUser());
+            Iterable<Image> userImages = imageRepository.findByUploader(UserUtils.returnLoggedUser());
             redirectAttributes.addFlashAttribute("values", userImages);
         }
         redirectAttributes.addFlashAttribute("editing", "True");
@@ -39,16 +41,5 @@ public class EditController {
 
 
         return "redirect:gallery";
-    }
-
-    private String returnLoggedUser() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        return username;
     }
 }

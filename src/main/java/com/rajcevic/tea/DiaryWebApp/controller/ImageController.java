@@ -14,6 +14,7 @@ import com.rajcevic.tea.DiaryWebApp.patterns.prototype.ImageCache;
 import com.rajcevic.tea.DiaryWebApp.model.Image;
 import com.rajcevic.tea.DiaryWebApp.model.User;
 import com.rajcevic.tea.DiaryWebApp.utils.ImageUtils;
+import com.rajcevic.tea.DiaryWebApp.utils.UserUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -64,7 +65,7 @@ public class ImageController {
     @GetMapping("/new")
     public String showForm(Model model) {
         model.addAttribute("image", new Image());
-        LOG.logVisit(returnLoggedUser(), "/new");
+        LOG.logVisit(UserUtils.returnLoggedUser(), "/new");
         return "imageUpload";
     }
 
@@ -72,13 +73,13 @@ public class ImageController {
     public String showEditForm(Model model, RedirectAttributes redirectAttributes, @PathVariable Long id) {
         Image original = imageRepository.findById(id).orElse(new Image());
         model.addAttribute("image", original);
-        LOG.logVisit(returnLoggedUser(), "/edit");
+        LOG.logVisit(UserUtils.returnLoggedUser(), "/edit");
         return "imageUpload";
     }
 
     @GetMapping("/sorry")
     public String showSorry(Model model) {
-        LOG.logVisit(returnLoggedUser(), "/sorry");
+        LOG.logVisit(UserUtils.returnLoggedUser(), "/sorry");
         return "sorryPage";
     }
 
@@ -100,7 +101,7 @@ public class ImageController {
             }
         }
 
-        image.setUploader(returnLoggedUser());
+        image.setUploader(UserUtils.returnLoggedUser());
         Date dt = new Date();
         Calendar c = Calendar.getInstance();
         c.setTime(dt);
@@ -108,7 +109,7 @@ public class ImageController {
         dt = c.getTime();
         image.setCreatedAt(dt);
 
-        LOG.logUpload(returnLoggedUser(), image.getTitle());
+        LOG.logUpload(UserUtils.returnLoggedUser(), image.getTitle());
 
         Filter filter = filterFactory.getFilter(image.getFilter());
         image.setFilter(filter.applyFilter());
@@ -148,7 +149,7 @@ public class ImageController {
             }
 
             imageRepository.save(original);
-            LOG.logEdit(returnLoggedUser(), original.getTitle());
+            LOG.logEdit(UserUtils.returnLoggedUser(), original.getTitle());
 
             throw new Exception();
         } catch (Exception e) {
@@ -161,27 +162,16 @@ public class ImageController {
     }
 
     void reduceUpload() {
-        User userFromDb = userRepository.findByUsername(returnLoggedUser());
+        User userFromDb = userRepository.findByUsername(UserUtils.returnLoggedUser());
         userFromDb.setUploadLimit(userFromDb.getUploadLimit() - 1);
         userRepository.save(userFromDb);
     }
 
     private boolean hasNoMoreUploads() {
-        User userFromDb = userRepository.findByUsername(returnLoggedUser());
+        User userFromDb = userRepository.findByUsername(UserUtils.returnLoggedUser());
         if(userFromDb.getUploadLimit() <= 0) {
             return true;
         }
         return false;
-    }
-
-    private String returnLoggedUser() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        return username;
     }
 }
