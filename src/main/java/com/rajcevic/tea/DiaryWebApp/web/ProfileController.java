@@ -2,8 +2,8 @@ package com.rajcevic.tea.DiaryWebApp.web;
 
 import com.rajcevic.tea.DiaryWebApp.DiaryWebAppApplication;
 import com.rajcevic.tea.DiaryWebApp.data.UserRepository;
-import com.rajcevic.tea.DiaryWebApp.misc.Logger;
-import com.rajcevic.tea.DiaryWebApp.misc.chain.SystemLogger;
+import com.rajcevic.tea.DiaryWebApp.patterns.Logger;
+import com.rajcevic.tea.DiaryWebApp.patterns.chain.SystemLogger;
 import com.rajcevic.tea.DiaryWebApp.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

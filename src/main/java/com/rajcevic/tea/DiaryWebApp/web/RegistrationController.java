@@ -6,8 +6,7 @@
 package com.rajcevic.tea.DiaryWebApp.web;
 
 import com.rajcevic.tea.DiaryWebApp.data.UserRepository;
-import com.rajcevic.tea.DiaryWebApp.misc.Logger;
-import com.rajcevic.tea.DiaryWebApp.model.User;
+import com.rajcevic.tea.DiaryWebApp.patterns.Logger;
 import com.rajcevic.tea.DiaryWebApp.model.form.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

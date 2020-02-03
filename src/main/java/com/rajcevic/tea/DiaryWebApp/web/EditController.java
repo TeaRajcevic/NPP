@@ -1,8 +1,7 @@
 package com.rajcevic.tea.DiaryWebApp.web;
 
 import com.rajcevic.tea.DiaryWebApp.data.ImageRepository;
-import com.rajcevic.tea.DiaryWebApp.misc.Logger;
-import com.rajcevic.tea.DiaryWebApp.misc.adapter.ImageChanger;
+import com.rajcevic.tea.DiaryWebApp.patterns.Logger;
 import com.rajcevic.tea.DiaryWebApp.model.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

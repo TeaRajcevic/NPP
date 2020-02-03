@@ -1,11 +1,8 @@
 package com.rajcevic.tea.DiaryWebApp.web;
 
 import com.rajcevic.tea.DiaryWebApp.DiaryWebAppApplication;
-import com.rajcevic.tea.DiaryWebApp.misc.Logger;
-import com.rajcevic.tea.DiaryWebApp.misc.chain.DebugLogger;
-import com.rajcevic.tea.DiaryWebApp.misc.chain.ErrorLogger;
-import com.rajcevic.tea.DiaryWebApp.misc.chain.InfoLogger;
-import com.rajcevic.tea.DiaryWebApp.misc.chain.SystemLogger;
+import com.rajcevic.tea.DiaryWebApp.patterns.Logger;
+import com.rajcevic.tea.DiaryWebApp.patterns.chain.SystemLogger;
 import org.apache.tomcat.util.codec.binary.Base64;
 import com.rajcevic.tea.DiaryWebApp.data.ImageRepository;
 import com.rajcevic.tea.DiaryWebApp.model.Image;

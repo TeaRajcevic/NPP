@@ -1,9 +1,9 @@
 package com.rajcevic.tea.DiaryWebApp;
 
-import com.rajcevic.tea.DiaryWebApp.misc.chain.DebugLogger;
-import com.rajcevic.tea.DiaryWebApp.misc.chain.ErrorLogger;
-import com.rajcevic.tea.DiaryWebApp.misc.chain.InfoLogger;
-import com.rajcevic.tea.DiaryWebApp.misc.chain.SystemLogger;
+import com.rajcevic.tea.DiaryWebApp.patterns.chain.DebugLogger;
+import com.rajcevic.tea.DiaryWebApp.patterns.chain.ErrorLogger;
+import com.rajcevic.tea.DiaryWebApp.patterns.chain.InfoLogger;
+import com.rajcevic.tea.DiaryWebApp.patterns.chain.SystemLogger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
