@@ -1,6 +1,6 @@
-package com.rajcevic.tea.DiaryWebApp.misc.factory;
+package com.rajcevic.tea.DiaryWebApp.patterns.factory;
 
-import com.rajcevic.tea.DiaryWebApp.misc.decorator.GaussianBlurDecorator;
+import com.rajcevic.tea.DiaryWebApp.patterns.decorator.GaussianBlurDecorator;
 
 public class FilterFactory {
     public Filter getFilter(String filterType){

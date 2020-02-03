@@ -1,6 +1,6 @@
-package com.rajcevic.tea.DiaryWebApp.misc.observer;
+package com.rajcevic.tea.DiaryWebApp.patterns.observer;
 
-import com.rajcevic.tea.DiaryWebApp.misc.Logger;
+import com.rajcevic.tea.DiaryWebApp.patterns.Logger;
 
 import java.io.File;
 

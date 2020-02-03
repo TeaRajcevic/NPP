@@ -1,7 +1,7 @@
-package com.rajcevic.tea.DiaryWebApp.misc.decorator;
+package com.rajcevic.tea.DiaryWebApp.patterns.decorator;
 
-import com.rajcevic.tea.DiaryWebApp.misc.Logger;
-import com.rajcevic.tea.DiaryWebApp.misc.factory.Filter;
+import com.rajcevic.tea.DiaryWebApp.patterns.Logger;
+import com.rajcevic.tea.DiaryWebApp.patterns.factory.Filter;
 
 public class GaussianBlurDecorator extends FilterDecorator {
 

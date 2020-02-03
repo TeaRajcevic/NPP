@@ -1,4 +1,4 @@
-package com.rajcevic.tea.DiaryWebApp.misc.prototype;
+package com.rajcevic.tea.DiaryWebApp.patterns.prototype;
 
 import com.rajcevic.tea.DiaryWebApp.data.ImageRepository;
 import com.rajcevic.tea.DiaryWebApp.model.Image;

@@ -1,4 +1,4 @@
-package com.rajcevic.tea.DiaryWebApp.misc.adapter;
+package com.rajcevic.tea.DiaryWebApp.patterns.adapter;
 
 public class ImageChangerAdapter implements ImageColorChanger {
 

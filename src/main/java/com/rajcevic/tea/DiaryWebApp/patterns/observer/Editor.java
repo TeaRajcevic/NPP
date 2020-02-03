@@ -1,4 +1,4 @@
-package com.rajcevic.tea.DiaryWebApp.misc.observer;
+package com.rajcevic.tea.DiaryWebApp.patterns.observer;
 
 import java.io.File;
 

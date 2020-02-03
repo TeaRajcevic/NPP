@@ -1,6 +1,6 @@
-package com.rajcevic.tea.DiaryWebApp.misc.adapter;
+package com.rajcevic.tea.DiaryWebApp.patterns.adapter;
 
-import com.rajcevic.tea.DiaryWebApp.misc.Logger;
+import com.rajcevic.tea.DiaryWebApp.patterns.Logger;
 
 public class TransparencyChanger implements ImageColorAndTransparencyChanger {
 

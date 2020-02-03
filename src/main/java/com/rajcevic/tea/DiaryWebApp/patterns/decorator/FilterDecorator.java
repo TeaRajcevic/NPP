@@ -1,6 +1,6 @@
-package com.rajcevic.tea.DiaryWebApp.misc.decorator;
+package com.rajcevic.tea.DiaryWebApp.patterns.decorator;
 
-import com.rajcevic.tea.DiaryWebApp.misc.factory.Filter;
+import com.rajcevic.tea.DiaryWebApp.patterns.factory.Filter;
 
 public  abstract class FilterDecorator implements Filter {
     protected Filter decoratedFilter;

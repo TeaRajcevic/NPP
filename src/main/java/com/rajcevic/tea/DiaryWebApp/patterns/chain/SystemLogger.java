@@ -1,6 +1,5 @@
-package com.rajcevic.tea.DiaryWebApp.misc.chain;
+package com.rajcevic.tea.DiaryWebApp.patterns.chain;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 

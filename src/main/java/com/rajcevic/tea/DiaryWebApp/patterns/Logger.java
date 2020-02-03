@@ -1,4 +1,4 @@
-package com.rajcevic.tea.DiaryWebApp.misc;
+package com.rajcevic.tea.DiaryWebApp.patterns;
 
 import java.io.FileWriter;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.rajcevic.tea.DiaryWebApp.misc.adapter;
+package com.rajcevic.tea.DiaryWebApp.patterns.adapter;
 
 public interface ImageColorAndTransparencyChanger {
     void changeTransparency(String imageName);

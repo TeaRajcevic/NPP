@@ -1,6 +1,6 @@
-package com.rajcevic.tea.DiaryWebApp.misc.factory;
+package com.rajcevic.tea.DiaryWebApp.patterns.factory;
 
-import com.rajcevic.tea.DiaryWebApp.misc.Logger;
+import com.rajcevic.tea.DiaryWebApp.patterns.Logger;
 
 public class SharperFilter implements Filter {
 
