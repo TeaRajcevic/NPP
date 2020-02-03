@@ -1,4 +1,4 @@
-package com.rajcevic.tea.DiaryWebApp.web;
+package com.rajcevic.tea.DiaryWebApp.configurations;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;

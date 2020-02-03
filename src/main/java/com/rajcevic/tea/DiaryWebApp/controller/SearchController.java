@@ -1,4 +1,4 @@
-package com.rajcevic.tea.DiaryWebApp.web;
+package com.rajcevic.tea.DiaryWebApp.controller;
 
 import com.rajcevic.tea.DiaryWebApp.data.ImageRepository;
 import com.rajcevic.tea.DiaryWebApp.patterns.Logger;
