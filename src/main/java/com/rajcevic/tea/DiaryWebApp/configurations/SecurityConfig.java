@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/login").anonymous()
+                .antMatchers("/actuator/**").anonymous()
                 .antMatchers("/register").anonymous()
                 .antMatchers("/gallery").permitAll()
                 .antMatchers("/search").permitAll()
