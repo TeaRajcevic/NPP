@@ -24,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -85,7 +86,7 @@ public class ImageController {
     }
 
     @PostMapping("new")
-    public String processForm(@Valid @ModelAttribute Image image, BindingResult bindingResult, @RequestParam(value="imagedata", required=true) Part file) {
+    public String processForm(@Valid @ModelAttribute Image image, BindingResult bindingResult, @RequestParam(value="imagedata") MultipartFile file) {
         if(hasNoMoreUploads() == true) {
             return "redirect:sorry";
         }
@@ -147,7 +148,7 @@ public class ImageController {
             imageRepository.save(original);
             LOG.logEdit(UserUtils.returnLoggedUser(), original.getTitle());
 
-            throw new Exception();
+            //throw new Exception();
         } catch (Exception e) {
             Image clonedImage = ImageCache.getImage(image.getId().toString());
             imageRepository.save(clonedImage);
