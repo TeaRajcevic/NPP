@@ -46,26 +46,14 @@ public class GalleryController {
             rawImages = (List<Image>)model.asMap().get("values");
 
             for(Image img : rawImages) {
-                Image temp = new Image();
-                temp.setId(img.getId());
-                temp.setImagedata(img.getImagedata());
-                temp.setFormat(img.getFormat());
-                temp.setTitle(img.getTitle());
-                thumbnails.add(createThumbnail(temp));
-                logChain.logMessage(SystemLogger.DEBUG, "Created thumbnail: " + img.getTitle());
+                createImageThumbnails(thumbnails, img);
             }
         }
         else {
             rawImages = imageRepository.findAll();
 
             for(Image img : imageRepository.findAll()) {
-                Image temp = new Image();
-                temp.setId(img.getId());
-                temp.setImagedata(img.getImagedata());
-                temp.setFormat(img.getFormat());
-                temp.setTitle(img.getTitle());
-                thumbnails.add(createThumbnail(temp));
-                logChain.logMessage(SystemLogger.DEBUG, "Created thumbnail: " + img.getTitle());
+                createImageThumbnails(thumbnails, img);
             }
         }
 
@@ -73,6 +61,16 @@ public class GalleryController {
         model.addAttribute("rawImages", rawImages);
         LOG.logVisit(returnLoggedUser(), "/gallery");
         return "imageGallery";
+    }
+
+    private void createImageThumbnails(List<Image> thumbnails, Image img) throws IOException {
+        Image temp = new Image();
+        temp.setId(img.getId());
+        temp.setImagedata(img.getImagedata());
+        temp.setFormat(img.getFormat());
+        temp.setTitle(img.getTitle());
+        thumbnails.add(createThumbnail(temp));
+        logChain.logMessage(SystemLogger.DEBUG, "Created thumbnail: " + img.getTitle());
     }
 
     private Image createThumbnail(Image img) throws IOException {
