@@ -3,6 +3,7 @@ package com.rajcevic.tea.DiaryWebApp.controller;
 import com.rajcevic.tea.DiaryWebApp.DiaryWebAppApplication;
 import com.rajcevic.tea.DiaryWebApp.patterns.Logger;
 import com.rajcevic.tea.DiaryWebApp.patterns.chain.SystemLogger;
+import com.rajcevic.tea.DiaryWebApp.utils.ImageUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import com.rajcevic.tea.DiaryWebApp.data.ImageRepository;
 import com.rajcevic.tea.DiaryWebApp.model.Image;
@@ -80,27 +81,8 @@ public class GalleryController {
     private Image createThumbnail(Image img) throws IOException {
         byte[] raw = Base64.decodeBase64(img.getImagedata());
         ByteArrayInputStream bis = new ByteArrayInputStream(raw);
-        BufferedImage bufferedImage = ImageIO.read(bis);
-        BufferedImage resized =resizeImage(bufferedImage, 100, 100);
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(resized, img.getFormat().toLowerCase(), baos);
-        byte[] imageInByte=baos.toByteArray();
-        img.setImagedata(Base64.encodeBase64String(imageInByte));
-        return img;
-    }
-
-    public static BufferedImage resizeImage(final BufferedImage image, int width, int height) {
-        final BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        final Graphics2D graphics2D = bufferedImage.createGraphics();
-        graphics2D.setComposite(AlphaComposite.Src);
-        //below three lines are for RenderingHints for better image quality at cost of higher processing time
-        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
-        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics2D.drawImage(image, 0, 0, width, height, null);
-        graphics2D.dispose();
-        return bufferedImage;
+        BufferedImage imageForThumbnail = ImageUtils.resizeImage(ImageIO.read(bis), 100, 100);
+        return ImageUtils.writeImage(img, imageForThumbnail);
     }
 
     private String returnLoggedUser() {

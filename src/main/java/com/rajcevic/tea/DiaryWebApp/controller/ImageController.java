@@ -13,6 +13,7 @@ import com.rajcevic.tea.DiaryWebApp.patterns.factory.FilterFactory;
 import com.rajcevic.tea.DiaryWebApp.patterns.prototype.ImageCache;
 import com.rajcevic.tea.DiaryWebApp.model.Image;
 import com.rajcevic.tea.DiaryWebApp.model.User;
+import com.rajcevic.tea.DiaryWebApp.utils.ImageUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -90,11 +91,10 @@ public class ImageController {
             try
             {
                 InputStream inputStream = file.getInputStream();
-                BufferedImage resized = processImage(inputStream, image.getSizex(), image.getSizey());
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ImageIO.write(resized, image.getFormat().toLowerCase(), baos );
-                byte[] imageInByte=baos.toByteArray();
-                image.setImagedata(Base64.encodeBase64String(imageInByte));
+                int x = Integer.parseInt(image.getSizex());
+                int y = Integer.parseInt(image.getSizey());
+                BufferedImage resized = ImageUtils.resizeImage(ImageIO.read(inputStream), x, y);
+                ImageUtils.writeImage(image, resized);
 
             }catch(IOException ex) {
             }
@@ -158,24 +158,6 @@ public class ImageController {
         }
 
         return "redirect:/gallery";
-    }
-
-    public BufferedImage processImage(InputStream file, String sizeX, String sizeY) throws IOException {
-        BufferedImage image = resizeImage(ImageIO.read(file), Integer.parseInt(sizeX), Integer.parseInt(sizeY));
-        return image;
-    }
-
-    public static BufferedImage resizeImage(final BufferedImage image, int width, int height) {
-        final BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        final Graphics2D graphics2D = bufferedImage.createGraphics();
-        graphics2D.setComposite(AlphaComposite.Src);
-        //below three lines are for RenderingHints for better image quality at cost of higher processing time
-        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
-        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics2D.drawImage(image, 0, 0, width, height, null);
-        graphics2D.dispose();
-        return bufferedImage;
     }
 
     void reduceUpload() {
