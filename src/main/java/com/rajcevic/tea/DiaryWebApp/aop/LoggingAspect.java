@@ -14,7 +14,7 @@ import org.springframework.util.StopWatch;
 public class LoggingAspect {
     private static final Logger LOGGER = LogManager.getLogger(LoggingAspect.class);
 
-    @Around("execution(* com.rajcevic.tea.DiaryWebApp.web..*(..)))")
+    @Around("execution(* com.rajcevic.tea.DiaryWebApp.controller..*(..)))")
     public Object profileAllMethods(ProceedingJoinPoint proceedingJoinPoint) throws Throwable
     {
         MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
