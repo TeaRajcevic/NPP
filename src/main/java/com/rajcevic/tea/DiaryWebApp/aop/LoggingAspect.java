@@ -37,13 +37,8 @@ public class LoggingAspect {
     }
 
     @Around("execution(void com.rajcevic.tea.DiaryWebApp.data.UserRepositoryImpl.saveUserWithAuthorities(..)))")
-    public Object savedUser(ProceedingJoinPoint proceedingJoinPoint) throws Throwable
+    public void savedUser()
     {
-        Object result = proceedingJoinPoint.proceed();
-
-        //Log method execution time
         LOGGER.info("New user registered!");
-
-        return result;
     }
 }

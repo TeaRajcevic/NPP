@@ -1,4 +1,4 @@
-package com.rajcevic.tea.DiaryWebApp.security;
+package com.rajcevic.tea.DiaryWebApp.configurations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
