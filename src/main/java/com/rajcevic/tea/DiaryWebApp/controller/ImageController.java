@@ -112,8 +112,6 @@ public class ImageController {
         image.setFilter(filter.applyFilter());
 
         imageRepository.save(image);
-        reduceUpload();
-
 
         try {
             editor.openFile("activity.txt");
@@ -156,12 +154,6 @@ public class ImageController {
         }
 
         return "redirect:/gallery";
-    }
-
-    void reduceUpload() {
-        User userFromDb = userRepository.findByUsername(UserUtils.returnLoggedUser());
-        userFromDb.setUploadLimit(userFromDb.getUploadLimit() - 1);
-        userRepository.save(userFromDb);
     }
 
     private boolean hasNoMoreUploads() {
