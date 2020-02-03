@@ -7,10 +7,8 @@ import com.rajcevic.tea.DiaryWebApp.model.form.SearchForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -35,18 +33,19 @@ public class SearchController {
     }
 
     @PostMapping
-    public String processSearch(@Valid @RequestBody SearchForm form, Model model, RedirectAttributes redirectAttributes) {
+    public String processSearch(@RequestParam MultiValueMap body, RedirectAttributes redirectAttributes) {
         Iterable<Image> filtered = new ArrayList<>();
-        String searchby = form.getTarget();
-        switch (searchby) {
+        String target = body.getFirst("target").toString();
+        String query = body.getFirst("query").toString();
+        switch (target) {
             case "title":
-                filtered = imageRepository.findByTitle(form.getQuery());
+                filtered = imageRepository.findByTitle(query);
                 break;
             case "tags":
-                filtered = imageRepository.findByTags(form.getQuery());
+                filtered = imageRepository.findByTags(query);
                 break;
             case "uploader":
-                filtered = imageRepository.findByUploader(form.getQuery());
+                filtered = imageRepository.findByUploader(query);
                 break;
         }
 

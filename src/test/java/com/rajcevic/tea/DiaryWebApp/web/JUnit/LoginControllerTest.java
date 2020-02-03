@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rajcevic.tea.DiaryWebApp.web;
+package com.rajcevic.tea.DiaryWebApp.web.JUnit;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
